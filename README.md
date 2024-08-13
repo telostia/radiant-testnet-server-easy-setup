@@ -55,13 +55,18 @@ The following tools were used in this project:
   Other requirements include basic knowledge of accessing to Ubuntu linux 18.04 or above and git. You may adapt this application to other linux systems but
   we will not be discussing them here. Windows and Mac Os is also not covered in this guide.
 
+### Open ports using ufw ###
+```bash
+# Open ports 80,443,50022 using ufw
+ufw allow 80/tcp && ufw allow 443/tcp && ufw allow 50022/tcp
+```
+
 ## :checkered_flag: Usage ##
 
 ### Setting up the folders ready ###
 ```bash
 # Clone this project
 git clone https://github.com/telostia/radiant-server-easy-setup
-# docker-compose-radiant-electrumx-automation
 ```
 
 ```bash
