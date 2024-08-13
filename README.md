@@ -56,32 +56,34 @@ The following tools were used in this project:
   we will not be discussing them here. Windows and Mac Os is also not covered in this guide.
 
 ### Open ports using ufw ###
-```bash
 # Open ports 80,443,50022 using ufw
+```bash
+
 ufw allow 80/tcp && ufw allow 443/tcp && ufw allow 50022/tcp
 ```
 
 ## :checkered_flag: Usage ##
 
 ### Setting up the folders ready ###
-```bash
 # Clone this project
+```bash
 git clone https://github.com/telostia/radiant-server-easy-setup
 ```
 
-```bash
 # Access the project folder
+```bash
 cd radiant-server-easy-setup
 ```
 
-```bash
 # Make a copy of .env 
+```bash
 cp .env.sample .env
 ```
 
-```bash
 # fill in your own values in .env file by using nano or any other text editor of your choice.
+```bash
 nano .env
+```
 
 # sample edit:
 rpcuser="bob"
@@ -93,22 +95,22 @@ SSL_CERTFILE=/etc/letsencrypt/live/bobdomain.com/fullchain.pem
 SSL_KEYFILE=/etc/letsencrypt/live/bobdomain.com/privkey.pem
 # fill in your own values in.
 # to save file in nano, hold control and press x, then let go and press y and press enter
-```
+
 
 ### Obtain a let's encrypto live SSL certificate via certbot ###
 
-```bash
 # Run the certbot 1st time and follow instructions on screen. 2nd times onward can be used at least once a day.
 # SSL certificates normally expires 3months(90days) so it's good practices to rerun this command once every week or month or if you're proficient in 
 # in crontab -e, u can set it to auto run the time frames you want.
+```bash
 bash run-certbot.sh
 ```
 
 ### Running the radiant node and electrumx server ###
   Once you have obtained an ssl certificate successfully via the above command, you may proceed to edit,build and start the application.
 
-```bash
 # Make a copy of nginx/conf/app.conf
+```bash
 cp nginx/conf/app.conf.sample nginx/app.conf
 ```
 
@@ -117,13 +119,13 @@ cp nginx/conf/app.conf.sample nginx/app.conf
 # find yourdomainname.com and fill in your domain, the same value you entered earlier in .env file. there should be 5 locations.
 ```
 
-```bash
 # start your webserver(nginx), it will auto build and run for you in the background.
+```bash
 make nbuild
 ```
 
-```bash
 # start your radiant node and electrumx server, it will auto build and run for you in the background.
+```bash
 make build
 ```
 
