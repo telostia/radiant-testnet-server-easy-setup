@@ -1,5 +1,5 @@
 <div align="center" id="top"> 
-  <img src="./.github/compose.jpeg" alt="Docker Compose Radiant Electrumx server easy setup" />
+  <img src="https://raw.githubusercontent.com/docker/compose/main/logo.png" alt="Docker Compose Radiant Electrumx server easy setup" />
   &#xa0;
 
 </div>
@@ -10,7 +10,7 @@
   <a href="#dart-about">About</a> &#xa0; | &#xa0; 
   <a href="#rocket-technologies">Technologies</a> &#xa0; | &#xa0;
   <a href="#white_check_mark-requirements">Requirements</a> &#xa0; | &#xa0;
-  <a href="#checkered_flag-starting">How To Use</a> &#xa0; | &#xa0;
+  <a href="#checkered_flag-Usage">Usage</a> &#xa0; | &#xa0;
   <a href="#memo-license">License</a> &#xa0; | &#xa0;
   <a href="https://github.com/telostia" target="_blank">Author</a>
   <a href="#memo-license">Donations Welcome</a> &#xa0; | &#xa0;
@@ -55,7 +55,7 @@ The following tools were used in this project:
   Other requirements include basic knowledge of accessing to Ubuntu linux 18.04 or above and git. You may adapt this application to other linux systems but
   we will not be discussing them here. Windows and Mac Os is also not covered in this guide.
 
-## :checkered_flag: How To Use ##
+## :checkered_flag: Usage ##
 
 ### Setting up the folders ready ###
 ```bash
