@@ -1,0 +1,23 @@
+version: '3.4'
+services:
+  letsencrypt:
+    image: certbot/certbot:latest
+    volumes:
+      - "./letsencrypt:/etc/letsencrypt"
+    environment:
+      - TERM=xterm
+      - domain=${domain}
+      - email=${email}
+    command: sh -c "certbot certonly --standalone -d ${domain} --text --agree-tos --email ${email} --server https://acme-v02.api.letsencrypt.org/directory --rsa-key-size 4096 --verbose --keep-until-expiring --preferred-challenges=http"
+    entrypoint: ""
+    networks:
+      - easy-radiant-network
+    # ports: # DO THIS FIRST CALL ONLY!!! COMMENT AFTER 1ST USE...
+    #   - "80:80"
+networks:
+  easy-radiant-network:
+    driver: bridge
+volumes:
+  letsencrypt:
+    name: letsencrypt_keys
+    

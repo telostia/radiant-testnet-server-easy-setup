@@ -1,0 +1,9 @@
+*.tf
+*.md
+*.png
+*.jpg
+*.jpeg
+.git
+.gitignore
+.gitmodules
+.github\*

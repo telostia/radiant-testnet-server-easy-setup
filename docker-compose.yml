@@ -1,0 +1,52 @@
+version: "3"
+services:
+  # radiant-node:
+  #   image: radiant-node-easy:latest
+  #   build:
+  #     context: ./
+  #     dockerfile: Dockerfile-radiantnode
+  #   container_name: radiant-node
+  #   ports:
+  #     - "7333:7333"
+  #   environment:
+  #     - TERM=xterm
+  #     - rpcuser=${rpcuser}
+  #     - rpcpassword=${rpcpassword}
+  #   volumes:
+  #     - ./volume/radiantnode:/root/.radiant
+  #   restart: always
+  #   networks:
+  #     - easy-radiant-network
+
+  radiant-electrumx:
+    image: radiant-electrumx-easy-set
+    container_name: radiant-set
+    build:
+      context: .
+      dockerfile: Dockerfile-set
+    ports:
+      - "7333:7333"
+      - "50010:50010"
+      - "50012:50012"
+      - "50022:50022"
+    environment:
+      - TERM=xterm
+      - domain=${domain}
+      - email=${email}
+      - rpcuser=${rpcuser}
+      - rpcpassword=${rpcpassword}
+      - DAEMON_URL=${DAEMON_URL}
+      - SSL_CERTFILE=${SSL_CERTFILE}
+      - SSL_KEYFILE=${SSL_KEYFILE}
+    volumes:
+      - ./letsencrypt:/etc/letsencrypt:ro
+      - ./volume/radiantnode:/root/.radiant
+    restart: always
+    networks:
+      - easy-radiant-network
+    # depends_on:
+    #   - radiant-node
+
+networks:
+  easy-radiant-network:
+    driver: bridge

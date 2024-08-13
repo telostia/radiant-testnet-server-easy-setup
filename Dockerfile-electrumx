@@ -1,0 +1,148 @@
+# The Radiant Blockchain Developers
+# The purpose of this image is to be able to host ElectrumX for radiantd (RXD)
+# Build with: `docker build -t electrumx .`
+# Public images at: https://hub.docker.com/repository/docker/radiantblockchain
+
+# edited by Blademaster for easy scripting
+
+FROM ubuntu:22.04
+
+LABEL maintainer="blademaster"
+LABEL version="1.0.0"
+LABEL description="Docker image for latest community build of electrumx radiantd node"
+
+ARG DEBIAN_FRONTEND=nointeractive
+# RUN apt update
+# RUN apt-get install -y curl
+# RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
+# RUN apt-get install -y nodejs
+
+ENV PACKAGES="\
+  build-essential \
+  libcurl4-openssl-dev \
+  software-properties-common \
+  ubuntu-drivers-common \
+  pkg-config \
+  libtool \
+  openssh-server \
+  git \
+  clinfo \
+  autoconf \
+  automake \
+  vim \
+  wget \
+  cmake \
+  python3 \
+  python3-pip \
+  python3-dev \
+  libleveldb-dev \
+  nano \
+"
+# Note can remove the opencl and ocl packages above when not building on a system for GPU/mining
+# Included only for reference purposes if this container would be used for mining as well.
+
+RUN apt update \
+    && apt install --no-install-recommends -y $PACKAGES
+    # && rm -rf /var/lib/apt/lists/* \
+    # && apt clean
+ 
+# Create directory for DB
+RUN mkdir /root/electrumdb
+
+WORKDIR /root
+
+# ORIGINAL SOURCE
+# RUN git clone --depth 1 --branch master https://github.com/RadiantBlockchain-Community/electrumx.git
+RUN git clone --depth 1 --branch master https://github.com/radiantblockchain/electrumx.git
+
+WORKDIR /root/electrumx
+COPY .env .env
+RUN python3 -m pip install -r requirements.txt
+
+# ARG domain
+# ARG email
+# ARG rpcuser
+# ARG rpcpassword
+# ARG DAEMON_URL
+# ARG SSL_CERTFILE
+# ARG SSL_KEYFILE
+
+# ENV DAEMON_URL="http://$rpcuser:$rpcpassword@localhost:7332/"
+# ENV DAEMON_URL=${DAEMON_URL}
+# ENV rpcuser=$rpcuser
+# ENV rpcpassword=$rpcpassword
+# ENV DAEMON_URL=http://user123:rpcpassword123ABC@localhost:7333/
+ENV COIN=Radiant
+ENV NET=mainnet
+ENV REQUEST_TIMEOUT=60
+ENV DB_DIRECTORY=/root/electrumdb
+ENV DB_ENGINE=leveldb
+
+ENV SERVICES=tcp://0.0.0.0:50010,SSL://0.0.0.0:50012,WSS://0.0.0.0:50022
+ENV HOST=""
+ENV ALLOW_ROOT=true
+ENV CACHE_MB=1000
+ENV MAX_SESSIONS=1000
+ENV MAX_SEND=10000000
+ENV MAX_RECV=10000000
+
+ENV COST_SOFT_LIMIT=0
+ENV COST_HARD_LIMIT=0
+
+# ENV ENV_DOMAIN=${domain}
+# ENV SSL_CERTFILE=${SSL_CERTFILE}
+# ENV SSL_KEYFILE=${SSL_KEYFILE}
+# ENV SSL_CERTFILE=/data/radiantnode_electrumx/electrumdb/server.crt
+# ENV SSL_KEYFILE=/data/radiantnode_electrumx/electrumdb/server.key
+# ENV SSL_CERTFILE="/etc/letsencrypt/live/$domain/fullchain.pem"
+# ENV SSL_KEYFILE="/etc/letsencrypt/live/$domain/privkey.pem"
+
+
+# Create SSL
+# WORKDIR /root/electrumdb
+
+# ENV SSL_CERTFILE=/root/electrumdb/server.crt
+# ENV SSL_KEYFILE=/root/electrumdb/server.key
+
+# RUN mkdir -p /data
+# RUN printf "$DAEMON_URL"
+# RUN printf "$rpcuser"
+# RUN printf "$rpcpassword"
+# RUN printf "$SSL_CERTFILE"
+# RUN printf "$SSL_KEYFILE"
+
+# ARG domain
+# ARG env_domain_crt=letsencrypt/live/$domain/fullchain.pem
+# ARG env_domain_key=letsencrypt/live/$domain/privkey.pem
+
+# ENV env_domain $domain
+# RUN echo $domain
+
+# Lifehack
+# FROM env_domain_crt as crt
+# FROM env_domain_key as key
+# ARG fileVariableCrt=./letsencrypt/live/$domain/fullchain.pem
+# ARG fileVariableKey=./letsencrypt/live/$domain/privkey.pem
+
+# COPY ${fileVariableCrt} /data/radiantnode_electrumx/electrumdb/server.crt
+# COPY ${fileVariableKey} /data/radiantnode_electrumx/electrumdb/server.key
+
+WORKDIR /root/electrumx
+
+# COPY electrumx.sh /electrumx.sh
+# RUN chmod 755 /electrumx.sh
+
+
+EXPOSE 50010 50012 50022
+
+# ENTRYPOINT ["/bin/sh", "-c" , "/electrumx.sh"]
+
+# ENTRYPOINT wait 2 
+ENTRYPOINT ["python3", "electrumx_server"]
+
+##### DOCKER INFO
+# build it with eg.: `docker build -t electrumx .`
+# run it with eg.:
+# `docker run -d --net=host -e DAEMON_URL="http://youruser:yourpass@localhost:7332" -e REPORT_SERVICES=tcp://example.com:50010 electrumx`
+# for a proper clean shutdown, send TERM signal to the running container eg.: `docker kill --signal="TERM" CONTAINER_ID`
+ 
