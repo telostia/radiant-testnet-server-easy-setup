@@ -1,31 +1,17 @@
 
-# radiant node
+# radiant node and electrumx set
 up:
 	docker-compose up
 stop:
 	docker-compose stop
 build:
-	docker-compose up --build
+	docker-compose up --build -d
 rm:
 	docker-compose rm -f
 bash:
 	docker exec -it radiant-set bash
 getinfo:
 	docker exec -it radiant-set sh -c "radiant-cli -datadir=/root/.radiant -getinfo"
-	
-
-# radiant electrumx server
-eup:
-	docker-compose -f docker-compose-electrumx.yml up
-estop:
-	docker-compose -f docker-compose-electrumx.yml stop
-ebuild:
-	docker-compose -f docker-compose-electrumx.yml up --build
-erm:
-	docker-compose -f docker-compose-electrumx.yml rm -f
-
-ebash:
-	docker exec -it radiant-electrumx bash
 
 # nginx web server
 nup:
@@ -33,7 +19,7 @@ nup:
 nstop:
 	docker-compose -f docker-compose-dual.yml up stop
 nbuild:
-	docker-compose -f docker-compose-dual.yml up --build
+	docker-compose -f docker-compose-dual.yml up --build -d
 nrm:
 	docker-compose -f docker-compose-dual.yml rm -f
 
