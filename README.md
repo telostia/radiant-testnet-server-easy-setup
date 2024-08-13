@@ -85,7 +85,7 @@ cp .env.sample .env
 nano .env
 ```
 
-# sample edit:
+ sample edit:
 ```bash
 rpcuser="bob"
 rpcpassword="bobrpcpassword"
@@ -153,7 +153,7 @@ Use whatever sections of this guide however you wish,however, radiant node and r
 Made with :heart: by <a href="https://github.com/telostia" target="_blank">telostia</a>
 
 ## Donations Welcome ##
-RXD(radiant): ```1FWbQqpJtQ3EPhMaCnQGKGnQwbra5p9eQ5```
+RXD(radiant): ```1DUtNqt65f3DGGgUfnnsBBJpmnsG5PHsGj```
 
 or if you prefer other currencies :) thank you very much!
 
