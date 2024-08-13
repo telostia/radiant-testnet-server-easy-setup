@@ -131,6 +131,17 @@ Hopefully everything goes well and now you have yourself your very own electrumx
 
 if you want to see what's happening behind the scenes when you run the servers, type in ```journalctl -xe```
 
+Your server will now be able to access via photonic wallet, glyph miner or any future supporting apps.
+Use the following as sample as the address you need to paste in the apps:
+```
+https://yourdomain.com:50022/
+```
+or 
+```
+wss://yourdomain.com:50022/
+```
+substitute "yourdomain.com" with your domain name and VOILA!
+
 
 ## :memo: License ##
 Use whatever sections of this guide however you wish,however, radiant node and radiant electrumx has their own licenses.
