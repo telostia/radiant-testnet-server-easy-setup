@@ -56,7 +56,7 @@ The following tools were used in this project:
   we will not be discussing them here. Windows and Mac Os is also not covered in this guide.
 
 ### Open ports using ufw ###
-# Open ports 80,443,50022 using ufw
+ Open ports 80,443,50022 using ufw
 ```bash
 
 ufw allow 80/tcp && ufw allow 443/tcp && ufw allow 50022/tcp
@@ -65,27 +65,28 @@ ufw allow 80/tcp && ufw allow 443/tcp && ufw allow 50022/tcp
 ## :checkered_flag: Usage ##
 
 ### Setting up the folders ready ###
-# Clone this project
+ Clone this project
 ```bash
 git clone https://github.com/telostia/radiant-server-easy-setup
 ```
 
-# Access the project folder
+ Access the project folder
 ```bash
 cd radiant-server-easy-setup
 ```
 
-# Make a copy of .env 
+ Make a copy of .env 
 ```bash
 cp .env.sample .env
 ```
 
-# fill in your own values in .env file by using nano or any other text editor of your choice.
+ fill in your own values in .env file by using nano or any other text editor of your choice.
 ```bash
 nano .env
 ```
 
 # sample edit:
+```bash
 rpcuser="bob"
 rpcpassword="bobrpcpassword"
 domain="bobdomain.com"
@@ -93,15 +94,16 @@ email="bobdomain@domain.com"
 DAEMON_URL=http://bob:bobpassword123z@localhost:7332/
 SSL_CERTFILE=/etc/letsencrypt/live/bobdomain.com/fullchain.pem
 SSL_KEYFILE=/etc/letsencrypt/live/bobdomain.com/privkey.pem
-# fill in your own values in.
-# to save file in nano, hold control and press x, then let go and press y and press enter
+```
+ fill in your own values in.
+ to save file in nano, hold control and press x, then let go and press y and press enter
 
 
 ### Obtain a let's encrypto live SSL certificate via certbot ###
 
-# Run the certbot 1st time and follow instructions on screen. 2nd times onward can be used at least once a day.
-# SSL certificates normally expires 3months(90days) so it's good practices to rerun this command once every week or month or if you're proficient in 
-# in crontab -e, u can set it to auto run the time frames you want.
+ Run the certbot 1st time and follow instructions on screen. 2nd times onward can be used at least once a day.
+ SSL certificates normally expires 3months(90days) so it's good practices to rerun this command once every week or month or if you're proficient in 
+ in crontab -e, u can set it to auto run the time frames you want.
 ```bash
 bash run-certbot.sh
 ```
@@ -109,7 +111,7 @@ bash run-certbot.sh
 ### Running the radiant node and electrumx server ###
   Once you have obtained an ssl certificate successfully via the above command, you may proceed to edit,build and start the application.
 
-# Make a copy of nginx/conf/app.conf
+ Make a copy of nginx/conf/app.conf
 ```bash
 cp nginx/conf/app.conf.sample nginx/app.conf
 ```
@@ -119,12 +121,12 @@ cp nginx/conf/app.conf.sample nginx/app.conf
 # find yourdomainname.com and fill in your domain, the same value you entered earlier in .env file. there should be 5 locations.
 ```
 
-# start your webserver(nginx), it will auto build and run for you in the background.
+ start your webserver(nginx), it will auto build and run for you in the background.
 ```bash
 make nbuild
 ```
 
-# start your radiant node and electrumx server, it will auto build and run for you in the background.
+ start your radiant node and electrumx server, it will auto build and run for you in the background.
 ```bash
 make build
 ```
