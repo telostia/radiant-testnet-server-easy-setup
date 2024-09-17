@@ -11,17 +11,20 @@ rm:
 bash:
 	docker exec -it radiant-set bash
 getinfo:
-	docker exec -it radiant-set sh -c "radiant-cli -datadir=/root/.radiant -getinfo"
+	docker exec -it radiant-set sh -c "radiant-cli -testnet -datadir=/root/.radiant -getinfo"
 
 # nginx web server
 nup:
 	docker-compose -f docker-compose-dual.yml up 
 nstop:
-	docker-compose -f docker-compose-dual.yml up stop
+	docker-compose -f docker-compose-dual.yml stop
 nbuild:
 	docker-compose -f docker-compose-dual.yml up --build -d
 nrm:
 	docker-compose -f docker-compose-dual.yml rm -f
+
+nbash:
+	docker exec -it nginx_dual bash
 
 #****************************************************/
 # GIT SECTION

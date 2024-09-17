@@ -59,26 +59,13 @@ WORKDIR /root/electrumx
 COPY .env .env
 RUN python3 -m pip install -r requirements.txt
 
-# ARG domain
-# ARG email
-# ARG rpcuser
-# ARG rpcpassword
-# ARG DAEMON_URL
-# ARG SSL_CERTFILE
-# ARG SSL_KEYFILE
-
-# ENV DAEMON_URL="http://$rpcuser:$rpcpassword@localhost:7332/"
-# ENV DAEMON_URL=${DAEMON_URL}
-# ENV rpcuser=$rpcuser
-# ENV rpcpassword=$rpcpassword
-# ENV DAEMON_URL=http://user123:rpcpassword123ABC@localhost:7333/
-ENV COIN=Radiant
-ENV NET=mainnet
+ENV COIN=RadiantTestnet
+ENV NET=testnet
 ENV REQUEST_TIMEOUT=60
 ENV DB_DIRECTORY=/root/electrumdb
 ENV DB_ENGINE=leveldb
 
-ENV SERVICES=tcp://0.0.0.0:50010,SSL://0.0.0.0:50012,WSS://0.0.0.0:50022
+ENV SERVICES=tcp://0.0.0.0:51010,SSL://0.0.0.0:51012,WSS://0.0.0.0:53002,rpc://0.0.0.0:8000
 ENV HOST=""
 ENV ALLOW_ROOT=true
 ENV CACHE_MB=1000
@@ -86,8 +73,8 @@ ENV MAX_SESSIONS=1000
 ENV MAX_SEND=10000000
 ENV MAX_RECV=10000000
 
-ENV COST_SOFT_LIMIT=0
-ENV COST_HARD_LIMIT=0
+ENV COST_SOFT_LIMIT=10
+ENV COST_HARD_LIMIT=10
 
 # ENV ENV_DOMAIN=${domain}
 # ENV SSL_CERTFILE=${SSL_CERTFILE}
@@ -106,7 +93,6 @@ ENV COST_HARD_LIMIT=0
 
 # RUN mkdir -p /data
 # RUN printf "$DAEMON_URL"
-# RUN printf "$rpcuser"
 # RUN printf "$rpcpassword"
 # RUN printf "$SSL_CERTFILE"
 # RUN printf "$SSL_KEYFILE"

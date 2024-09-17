@@ -13,9 +13,15 @@ server=1
 rest=1
 dbcache=10
 txindex=1
+testnet=1
+[test]
+port=17333
+rpcport=17332
 rpcworkqueue=1024
 rpcthreads=64
 rpcallowip=0.0.0.0/0
+addnode=194.163.159.47
+addnode=217.182.174.119
 EOF
 fi
 

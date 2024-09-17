@@ -93,7 +93,7 @@ ARG rpcpassword
 #     printf "current IP=$EXTIP\nrpcuser=radiant${rpcuser}\nrpcpassword=${rpcpassword}\n" 
 
 
-EXPOSE 7333
+EXPOSE 17333
 
 # ENTRYPOINT radiantd -rpcworkqueue=32 -rpcthreads=16 -rest -server -rpcallowip=0.0.0.0/0 -txindex=1 -rpcbind=127.0.0.1 -rpcbind=radiant-node -rpcuser=radiant${rpcuser} -rpcpassword=${rpcpassword}
 

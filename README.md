@@ -4,7 +4,7 @@
 
 </div>
 
-<h1 align="center">radiant-server-easy-setup</h1>
+<h1 align="center">radiant-testnetserver-easy-setup</h1>
 
 <p align="center">
   <a href="#dart-about">About</a> &#xa0; | &#xa0; 
@@ -20,7 +20,7 @@
 
 ## :dart: About ##
 
-Easy setup and run radiant node and electrumx server with certbot SSL using Docker Compose,Bash Scripts.
+Easy setup and run radiant node and electrumx server with certbot SSL using Docker Compose,Bash Scripts. TESTNET EDITION!!!
 
 ## :rocket: Technologies ##
 
@@ -56,10 +56,10 @@ The following tools were used in this project:
   we will not be discussing them here. Windows and Mac Os is also not covered in this guide.
 
 ### Open ports using ufw ###
- Open ports 80,443,50022 using ufw
+ Open ports 80,443,53002 using ufw
 ```bash
 
-ufw allow 80/tcp && ufw allow 443/tcp && ufw allow 50022/tcp
+ufw allow 80/tcp && ufw allow 443/tcp && ufw allow 53002/tcp
 ```
 
 ## :checkered_flag: Usage ##
@@ -67,12 +67,12 @@ ufw allow 80/tcp && ufw allow 443/tcp && ufw allow 50022/tcp
 ### Setting up the folders ready ###
  Clone this project
 ```bash
-git clone https://github.com/telostia/radiant-server-easy-setup
+git clone https://github.com/telostia/radiant-testnet-server-easy-setup
 ```
 
  Access the project folder
 ```bash
-cd radiant-server-easy-setup
+cd radiant-testnet-server-easy-setup
 ```
 
  Make a copy of .env 
@@ -87,11 +87,11 @@ nano .env
 
  sample edit:
 ```bash
-rpcuser="bob"
-rpcpassword="bobrpcpassword"
-domain="bobdomain.com"
-email="bobdomain@domain.com"
-DAEMON_URL=http://bob:bobpassword123z@localhost:7332/
+rpcuser=bob
+rpcpassword=bobrpcpassword
+domain=bobdomain.com
+email=bobdomain@domain.com
+DAEMON_URL=http://bob:bobpassword123z@localhost:17333/
 SSL_CERTFILE=/etc/letsencrypt/live/bobdomain.com/fullchain.pem
 SSL_KEYFILE=/etc/letsencrypt/live/bobdomain.com/privkey.pem
 ```
@@ -100,6 +100,9 @@ SSL_KEYFILE=/etc/letsencrypt/live/bobdomain.com/privkey.pem
 
 
 ### Obtain a let's encrypto live SSL certificate via certbot ###
+
+(please note that if you have any network servers running like nginx, disable them now for e.g systemctl stop nginx. This script will require port 80 to be available
+so if you have failed once, you must delete the .certbot file generated after first use and then run the script again. this is very important. To remove .certbot file type: rm .certbot)
 
  Run the certbot 1st time and follow instructions on screen. 2nd times onward can be used at least once a day.
  SSL certificates normally expires 3months(90days) so it's good practices to rerun this command once every week or month or if you're proficient in 
@@ -113,7 +116,7 @@ bash run-certbot.sh
 
  Make a copy of nginx/conf/app.conf
 ```bash
-cp nginx/conf/app.conf.sample nginx/app.conf
+cp nginx/conf/app.conf.sample nginx/conf/app.conf
 ```
 
 ```bash

@@ -82,26 +82,13 @@ WORKDIR /root/electrumx
 COPY .env .env
 RUN python3 -m pip install -r requirements.txt
 
-# ARG domain
-# ARG email
-# ARG rpcuser
-# ARG rpcpassword
-# ARG DAEMON_URL
-# ARG SSL_CERTFILE
-# ARG SSL_KEYFILE
-
-# ENV DAEMON_URL="http://$rpcuser:$rpcpassword@localhost:7332/"
-# ENV DAEMON_URL=${DAEMON_URL}
-# ENV rpcuser=$rpcuser
-# ENV rpcpassword=$rpcpassword
-# ENV DAEMON_URL=http://user123:rpcpassword123ABC@localhost:7333/
-ENV COIN=Radiant
-ENV NET=mainnet
+ENV COIN=RadiantTestnet
+ENV NET=testnet
 ENV REQUEST_TIMEOUT=60
 ENV DB_DIRECTORY=/root/electrumdb
 ENV DB_ENGINE=leveldb
 
-ENV SERVICES=tcp://0.0.0.0:50010,ssl://0.0.0.0:50012,wss://0.0.0.0:50022:rpc://0.0.0.0:8000
+ENV SERVICES=tcp://0.0.0.0:51010,SSL://0.0.0.0:51012,WSS://0.0.0.0:53002,rpc://0.0.0.0:8000
 ENV HOST=""
 ENV ALLOW_ROOT=true
 ENV CACHE_MB=1000
@@ -109,8 +96,8 @@ ENV MAX_SESSIONS=1000
 ENV MAX_SEND=10000000
 ENV MAX_RECV=10000000
 
-ENV COST_SOFT_LIMIT=0
-ENV COST_HARD_LIMIT=0
+ENV COST_SOFT_LIMIT=10
+ENV COST_HARD_LIMIT=10
 
 # ENV ENV_DOMAIN=${domain}
 # ENV SSL_CERTFILE=${SSL_CERTFILE}
@@ -127,45 +114,12 @@ ENV COST_HARD_LIMIT=0
 # ENV SSL_CERTFILE=/root/electrumdb/server.crt
 # ENV SSL_KEYFILE=/root/electrumdb/server.key
 
-# RUN mkdir -p /data
-# RUN printf "$DAEMON_URL"
-# RUN printf "$rpcuser"
-# RUN printf "$rpcpassword"
-# RUN printf "$SSL_CERTFILE"
-# RUN printf "$SSL_KEYFILE"
-
-# ARG domain
-# ARG env_domain_crt=letsencrypt/live/$domain/fullchain.pem
-# ARG env_domain_key=letsencrypt/live/$domain/privkey.pem
-
-# ENV env_domain $domain
-# RUN echo $domain
-
-# Lifehack
-# FROM env_domain_crt as crt
-# FROM env_domain_key as key
-# ARG fileVariableCrt=./letsencrypt/live/$domain/fullchain.pem
-# ARG fileVariableKey=./letsencrypt/live/$domain/privkey.pem
-
-# COPY ${fileVariableCrt} /data/radiantnode_electrumx/electrumdb/server.crt
-# COPY ${fileVariableKey} /data/radiantnode_electrumx/electrumdb/server.key
 
 WORKDIR /root/electrumx
 
 COPY set.sh /set.sh
 RUN chmod 755 /set.sh
 
-
-EXPOSE 7333 50010 50012 50022
+EXPOSE 17333 51010 51012 53002 8000
 
 ENTRYPOINT ["/bin/sh", "-c" , "/set.sh"]
-
-# ENTRYPOINT wait 2 
-# ENTRYPOINT ["python3", "electrumx_server"]
-
-##### DOCKER INFO
-# build it with eg.: `docker build -t electrumx .`
-# run it with eg.:
-# `docker run -d --net=host -e DAEMON_URL="http://youruser:yourpass@localhost:7332" -e REPORT_SERVICES=tcp://example.com:50010 electrumx`
-# for a proper clean shutdown, send TERM signal to the running container eg.: `docker kill --signal="TERM" CONTAINER_ID`
- 

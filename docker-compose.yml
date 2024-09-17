@@ -1,22 +1,5 @@
 version: "3"
 services:
-  # radiant-node:
-  #   image: radiant-node-easy:latest
-  #   build:
-  #     context: ./
-  #     dockerfile: Dockerfile-radiantnode
-  #   container_name: radiant-node
-  #   ports:
-  #     - "7333:7333"
-  #   environment:
-  #     - TERM=xterm
-  #     - rpcuser=${rpcuser}
-  #     - rpcpassword=${rpcpassword}
-  #   volumes:
-  #     - ./volume/radiantnode:/root/.radiant
-  #   restart: always
-  #   networks:
-  #     - easy-radiant-network
 
   radiant-electrumx:
     image: radiant-electrumx-easy-set
@@ -25,10 +8,11 @@ services:
       context: .
       dockerfile: Dockerfile-set
     ports:
-      - "7333:7333"
-      - "50010:50010"
-      - "50012:50012"
-      - "50022:50022"
+      - "17333:17333"
+      - "51010:51010"
+      - "51012:51012"
+      - "53002:53002"
+      - "8000:8000"
     environment:
       - TERM=xterm
       - domain=${domain}
